@@ -5,5 +5,5 @@ from .extension import celery
 
 class FlaskCeleryBundle(Bundle):
     module_name = __name__
-    command_group_names = ['celery']
+    name = 'celery'
     extensions_module_name = 'extension'

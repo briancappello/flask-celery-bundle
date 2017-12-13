@@ -12,9 +12,6 @@ class FlaskCelery(Celery):
         super().__init__(*args, **kwargs)
         self.override_task_class()
 
-        if 'app' in kwargs:
-            self.init_app(kwargs['app'])
-
     def override_task_class(self):
         BaseTask = self.Task
         _celery = self
@@ -37,8 +34,7 @@ class FlaskCelery(Celery):
         self.__autoset('result_backend', app.config.get('CELERY_RESULT_BACKEND'))
         self.config_from_object(app.config)
 
-        # FIXME is this maybe a bad idea?
-        self.main = app.config.get('APP_MODULE_NAME', None)
+        self.main = app.config.get('APP_IMPORT_NAME', None)
         if self.main:
             self.autodiscover_tasks(lambda: [self.main] + app.config.get('BUNDLES'))
         else:
