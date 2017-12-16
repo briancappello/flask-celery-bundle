@@ -1,2 +1,2 @@
 celery>=4.1.0
-flask-application-factory>=0.1
+flask-unchained>=0.1
