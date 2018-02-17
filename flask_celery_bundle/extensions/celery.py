@@ -4,10 +4,10 @@ https://stackoverflow.com/questions/12044776/how-to-use-flask-sqlalchemy-in-a-ce
 """
 import flask
 
-from celery import Celery
+from celery import Celery as BaseCelery
 
 
-class FlaskCelery(Celery):
+class Celery(BaseCelery):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.override_task_class()
