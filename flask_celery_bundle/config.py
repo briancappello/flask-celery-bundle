@@ -1,5 +1,7 @@
 import os
 
+from .tasks import _send_mail_task
+
 
 class BaseConfig:
     CELERY_BROKER_URL = 'redis://{host}:{port}/0'.format(
@@ -9,18 +11,5 @@ class BaseConfig:
     CELERY_RESULT_BACKEND = CELERY_BROKER_URL
     CELERY_ACCEPT_CONTENT = ('json', 'pickle')
 
-
-class DevConfig(BaseConfig):
-    pass
-
-
-class ProdConfig(BaseConfig):
-    pass
-
-
-class StagingConfig(ProdConfig):
-    pass
-
-
-class TestConfig(BaseConfig):
-    pass
+    # configure flask_mail_bundle to send emails via celery
+    MAIL_SEND_TASK = _send_mail_task

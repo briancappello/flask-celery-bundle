@@ -28,12 +28,14 @@ class Celery(BaseCelery):
 
         self.Task = ContextTask
 
-    def init_app(self, app: flask.Flask):
+    def init_app(self, app):
+        self.app = app
         self.main = app.import_name
         self.__autoset('broker_url', app.config.get('CELERY_BROKER_URL'))
         self.__autoset('result_backend', app.config.get('CELERY_RESULT_BACKEND'))
         self.config_from_object(app.config)
-        self.autodiscover_tasks(lambda: app.config.get('BUNDLES'))
+        self.autodiscover_tasks(lambda: [bundle.module_name
+                                         for bundle in app.unchained.BUNDLES])
 
     def __autoset(self, key, value):
         if value:
