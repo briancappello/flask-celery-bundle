@@ -2,7 +2,6 @@
 
 Adds Celery support to Flask Unchained projects
 
-
 # Install
 
 Install from PyPI:
@@ -11,19 +10,18 @@ Install from PyPI:
 $ pip install flask_celery_bundle
 ```
 
-Add it to `unchained_config.BUNDLES`:
+And add it to your `unchained_config.BUNDLES`:
 
 ```python
 # your_app_package/unchained_config.py
 
 BUNDLES = [
-    'flask_mail_bundle',
     'flask_celery_bundle',
     # ...
 ]
 ```
 
-NOTE: If you're using `flask_mail_bundle`, then `flask_celery_bundle` must be listed *after* `flask_mail_bundle`.
+NOTE: If you're using `flask_mail_bundle`, and you want to send emails asynchronously with celery, then `flask_celery_bundle` must be listed *after* `flask_mail_bundle` (or alternatively, you could manually configure `MAIL_SEND_FN` in your app bundle config).
 
 # Configure
 

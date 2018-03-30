@@ -12,4 +12,4 @@ class BaseConfig:
     CELERY_ACCEPT_CONTENT = ('json', 'pickle')
 
     # configure flask_mail_bundle to send emails via celery
-    MAIL_SEND_TASK = _send_mail_task
+    MAIL_SEND_FN = _send_mail_task
