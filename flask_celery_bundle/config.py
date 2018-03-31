@@ -1,6 +1,6 @@
 import os
 
-from .tasks import _send_mail_task
+from .tasks import async_mail_task, _send_mail_async
 
 
 class BaseConfig:
@@ -12,4 +12,5 @@ class BaseConfig:
     CELERY_ACCEPT_CONTENT = ('json', 'pickle')
 
     # configure flask_mail_bundle to send emails via celery
-    MAIL_SEND_FN = _send_mail_task
+    if async_mail_task:
+        MAIL_SEND_FN = _send_mail_async
