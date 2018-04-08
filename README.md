@@ -32,7 +32,7 @@ The default configuration included with this bundle uses `redis` as a message br
 ```python
 import os
 
-class BaseConfig:
+class Config:
     CELERY_BROKER_URL = 'redis://{host}:{port}/0'.format(
         host=os.getenv('FLASK_REDIS_HOST', '127.0.0.1'),
         port=os.getenv('FLASK_REDIS_PORT', 6379),
