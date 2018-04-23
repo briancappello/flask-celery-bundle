@@ -14,7 +14,8 @@ except ImportError:
             return lambda fn: None
 
 
-def _send_mail_async(subject_or_message, to=None, template=None, **kwargs):
+def _send_mail_async(subject_or_message=None, to=None, template=None, **kwargs):
+    subject_or_message = subject_or_message or kwargs.pop('subject')
     if current_app and current_app.testing:
         return async_mail_task.apply([subject_or_message, to, template], kwargs)
     return async_mail_task.delay(subject_or_message, to, template, **kwargs)
