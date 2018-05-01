@@ -7,7 +7,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
     name='Flask Celery Bundle',
-    version='0.2.0',
+    version='0.2.1',
     description='Adds Celery support to Flask Unchained',
     long_description=long_description,
     url='https://github.com/briancappello/flask-celery-bundle',

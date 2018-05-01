@@ -1,6 +1,8 @@
 # CHANGELOG
 
-## 0.2.1 (unreleased)
+## 0.2.2 (unreleased)
+
+## 0.2.1 (2018/05/01)
 
 * support passing `subject` as a kwarg to the send mail function
 * support serializing `lambda` functions using the `dill` library
