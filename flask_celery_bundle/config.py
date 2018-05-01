@@ -9,7 +9,7 @@ class Config:
         port=os.getenv('FLASK_REDIS_PORT', 6379),
     )
     CELERY_RESULT_BACKEND = CELERY_BROKER_URL
-    CELERY_ACCEPT_CONTENT = ('json', 'pickle')
+    CELERY_ACCEPT_CONTENT = ('json', 'pickle', 'dill')
 
     # configure flask_mail_bundle to send emails via celery
     if async_mail_task:

@@ -5,10 +5,14 @@ https://stackoverflow.com/questions/12044776/how-to-use-flask-sqlalchemy-in-a-ce
 import flask
 
 from celery import Celery as BaseCelery
+from dill import dill
+from kombu.serialization import pickle_loads, pickle_protocol, registry
+from kombu.utils.encoding import str_to_bytes
 
 
 class Celery(BaseCelery):
     def __init__(self, *args, **kwargs):
+        self.register_dill()
         super().__init__(*args, **kwargs)
         self.override_task_class()
 
@@ -36,6 +40,21 @@ class Celery(BaseCelery):
         self.config_from_object(app.config)
         self.autodiscover_tasks(lambda: [bundle.module_name
                                          for bundle in app.unchained.BUNDLES])
+
+    def register_dill(self):
+        def encode(obj, dumper=dill.dumps):
+            return dumper(obj, protocol=pickle_protocol)
+
+        def decode(s):
+            return pickle_loads(str_to_bytes(s), load=dill.load)
+
+        registry.register(
+            name='dill',
+            encoder=encode,
+            decoder=decode,
+            content_type='application/x-python-serialize',
+            content_encoding='binary'
+        )
 
     def __autoset(self, key, value):
         if value:

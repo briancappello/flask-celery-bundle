@@ -27,6 +27,7 @@ setup(
     packages=find_packages(exclude=['docs', 'tests']),
     install_requires=[
         'celery>=4.1.0',
+        'dill>=0.2.7.1',
         'flask-unchained>=0.2.0',
     ],
     python_requires='>=3.6',

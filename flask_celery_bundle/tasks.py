@@ -21,7 +21,7 @@ def _send_mail_async(subject_or_message=None, to=None, template=None, **kwargs):
     return async_mail_task.delay(subject_or_message, to, template, **kwargs)
 
 
-@celery.task(serializer='pickle')
+@celery.task(serializer='dill')
 def async_mail_task(subject_or_message, to=None, template=None, **kwargs):
     to = to or kwargs.pop('recipients', [])
     msg = make_message(subject_or_message, to, template, **kwargs)
