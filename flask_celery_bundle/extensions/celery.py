@@ -5,9 +5,10 @@ https://stackoverflow.com/questions/12044776/how-to-use-flask-sqlalchemy-in-a-ce
 import flask
 
 from celery import Celery as BaseCelery
-from dill import dill
+from dill import dumps as dill_dumps, load as dill_load
 from kombu.serialization import pickle_loads, pickle_protocol, registry
 from kombu.utils.encoding import str_to_bytes
+from werkzeug.local import LocalProxy
 
 
 class Celery(BaseCelery):
@@ -42,11 +43,11 @@ class Celery(BaseCelery):
                                          for bundle in app.unchained.BUNDLES])
 
     def register_dill(self):
-        def encode(obj, dumper=dill.dumps):
+        def encode(obj, dumper=dill_dumps):
             return dumper(obj, protocol=pickle_protocol)
 
         def decode(s):
-            return pickle_loads(str_to_bytes(s), load=dill.load)
+            return pickle_loads(str_to_bytes(s), load=dill_load)
 
         registry.register(
             name='dill',

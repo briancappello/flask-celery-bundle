@@ -2,6 +2,8 @@
 
 ## 0.2.2 (unreleased)
 
+* bump dill version
+
 ## 0.2.1 (2018/05/01)
 
 * support passing `subject` as a kwarg to the send mail function
